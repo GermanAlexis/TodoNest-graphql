@@ -3,5 +3,12 @@
 # ------------------------------------------------------
 
 type Query {
-  helloWorld: String!
+  """Query Hola mundo return string"""
+  hello: String!
+
+  """Obtiene un numero ramdon decimal"""
+  numberRamdonfloat: Float!
+
+  """Obtiene un numero ramdon entero del 1 a TO (default 6)"""
+  numberRamdonint(to: Int): Int!
 }
