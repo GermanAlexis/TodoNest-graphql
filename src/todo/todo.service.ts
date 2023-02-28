@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Todo } from './entity/todo.entity';
 import { CreateTodoInput, UpdateTodoInput } from './dto/Input/index';
+import { BooleanValueNode } from 'graphql';
 
 @Injectable()
 export class TodoService {
@@ -41,5 +42,12 @@ export class TodoService {
     this.todos = this.todos.map((todo) => {
       return todo.id == id ? todoToUpdate : todo;
     });
+  }
+
+  delete(updateTodoInput: UpdateTodoInput): boolean {
+    const { id } = updateTodoInput;
+    const todoRemove = this.findOne(id);
+    this.todos = this.todos.filter((todo) => todo.id !== todoRemove.id);
+    return true;
   }
 }

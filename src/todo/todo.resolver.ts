@@ -32,4 +32,11 @@ export class TodoResolver {
   updateTodo(@Args('updateTodoInput') updateTodoInput: UpdateTodoInput) {
     return this.todoService.update(updateTodoInput);
   }
+
+  @Mutation(() => Boolean, { name: 'deleteTodo' })
+  deleteTodo(
+    @Args('deleteTodoInput') updateTodoInput: UpdateTodoInput,
+  ): boolean {
+    return this.todoService.delete(updateTodoInput);
+  }
 }
