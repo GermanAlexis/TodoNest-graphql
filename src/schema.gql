@@ -19,10 +19,19 @@ type Query {
   numberRamdonint(to: Int): Int!
 
   """devuelve un lista de todo"""
-  Todos: [Todo!]!
+  Todos(status: Boolean): [Todo!]!
 
   """devuelve un todo existente"""
   TodoByOne(id: Int!): Todo!
+
+  """devuelve el conteo de todos los todos"""
+  TotalTodos: Int!
+
+  """devuelve todos completados"""
+  completedTodos: Int!
+
+  """devuelve los todos pendientes"""
+  peddingtodos: Int!
 }
 
 type Mutation {

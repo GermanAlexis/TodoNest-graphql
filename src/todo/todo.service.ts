@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Todo } from './entity/todo.entity';
 import { CreateTodoInput, UpdateTodoInput } from './dto/Input/index';
-import { BooleanValueNode } from 'graphql';
+import { StatusArgs } from './dto/args/status.args';
 
 @Injectable()
 export class TodoService {
@@ -9,10 +9,25 @@ export class TodoService {
     { id: 1, description: 'piedra del alma', done: false },
     { id: 2, description: 'piedra del espacio', done: true },
     { id: 3, description: 'piedra del tiempo', done: false },
+    { id: 3, description: 'piedra del poder', done: false },
   ];
 
-  findAll(): Todo[] {
-    return this.todos;
+  get totaltodos(): number {
+    return this.todos.length;
+  }
+
+  get completedtodos(): number {
+    return this.todos.filter((todo) => todo.done).length;
+  }
+
+  get pendingtodos(): number {
+    return this.todos.filter((todo) => !todo.done).length;
+  }
+
+  findAll({ status }: StatusArgs): Todo[] {
+    return status !== undefined
+      ? this.todos.filter((todo) => todo.done === status)
+      : this.todos;
   }
 
   findOne(id: number): Todo {
@@ -32,8 +47,7 @@ export class TodoService {
     return todo;
   }
 
-  update(updateTodoInput: UpdateTodoInput) {
-    const { id, description, done } = updateTodoInput;
+  update({ id, description, done }: UpdateTodoInput) {
     const todoToUpdate = this.findOne(id);
 
     if (description) todoToUpdate.description = description;
