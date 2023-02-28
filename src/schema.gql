@@ -8,6 +8,13 @@ type Todo {
   done: Boolean!
 }
 
+"""types custom"""
+type AggregationsType {
+  completed: Int!
+  pending: Int!
+  total: Int!
+}
+
 type Query {
   """Query Hola mundo return string"""
   hello: String!
@@ -32,6 +39,9 @@ type Query {
 
   """devuelve los todos pendientes"""
   peddingtodos: Int!
+
+  """devuelve el conteo agrupado de todo"""
+  CountGlobalTodos: AggregationsType!
 }
 
 type Mutation {

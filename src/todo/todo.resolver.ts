@@ -3,6 +3,7 @@ import { StatusArgs } from './dto/args/status.args';
 import { CreateTodoInput, UpdateTodoInput } from './dto/Input/index';
 import { Todo } from './entity/todo.entity';
 import { TodoService } from './todo.service';
+import { AggregationsType } from './types/aggregations.types';
 
 @Resolver()
 export class TodoResolver {
@@ -63,5 +64,17 @@ export class TodoResolver {
   })
   peddingTodos(): number {
     return this.todoService.pendingtodos;
+  }
+
+  @Query(() => AggregationsType, {
+    description: 'devuelve el conteo agrupado de todo',
+    name: 'CountGlobalTodos',
+  })
+  aggrupationResolve(): AggregationsType {
+    return {
+      pending: this.todoService.pendingtodos,
+      completed: this.todoService.completedtodos,
+      total: this.todoService.totaltodos,
+    };
   }
 }
