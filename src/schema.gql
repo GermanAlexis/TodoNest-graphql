@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Todo {
+  id: Int!
+  description: String!
+  done: Boolean!
+}
+
 type Query {
   """Query Hola mundo return string"""
   hello: String!
@@ -11,4 +17,10 @@ type Query {
 
   """Obtiene un numero ramdon entero del 1 a TO (default 6)"""
   numberRamdonint(to: Int): Int!
+
+  """devuelve un lista de todo"""
+  Todos: [Todo!]!
+
+  """devuelve un todo existente"""
+  TodoByOne(id: Int!): Todo!
 }
