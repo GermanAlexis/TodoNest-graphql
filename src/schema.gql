@@ -24,3 +24,11 @@ type Query {
   """devuelve un todo existente"""
   TodoByOne(id: Int!): Todo!
 }
+
+type Mutation {
+  CreateTodo(createTodoInput: CreateTodoInput!): Todo!
+}
+
+input CreateTodoInput {
+  description: String!
+}
